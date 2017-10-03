@@ -1,0 +1,23 @@
+.home_right_column, #pagelet_rhc_footer, #pagelet_navigation, #rightCol
+{
+  display:none;
+}
+#blueBarDOMInspector h1 a span {
+    background: none;
+}
+
+#contentArea {
+    right: auto;
+}
+
+#content_container {
+    display: flex;
+    justify-content: flex-end;
+}
+
+
+#blueBarDOMInspector div[role=search] {
+    float: right;
+    width: 100%;
+    margin-right: 20px;
+}
