@@ -7,6 +7,9 @@
             "matches": [
                 "https://www.facebook.com/*"
             ],
+            "js": [
+                "better-facebook.js"
+            ],
             "css": [
                 "better-facebook.css"
             ],
