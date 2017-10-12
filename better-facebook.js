@@ -28,7 +28,7 @@ var now = new Date().getTime();
 var LIMIT = 5 * 60 * 1000;
 
 var minutes = parseInt((((LIMIT + previous) - now) / 1000 / 60), 10);
-var text = minutes >= 0 ? 'You have to wait' : 'Good job! You have being on Facebook for';
+var text = minutes >= 0 ? 'You have to wait' : 'Good job! You haven't being on Facebook for';
 var wait = '<br><em><small style="font-size: 0.4em">' + text + ' ' + Math.abs(minutes) + ' ' + (Math.abs(minutes) === 1 ? 'minute' : 'minutes') + '.</small></em>'
 overlay.innerHTML = 'Are you really bored?' + wait;
 
