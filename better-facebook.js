@@ -1,5 +1,11 @@
-var overlay = document.createElement('div');
-var style = {
+function applyStyle(element, style) {
+    for (var key in style) {
+        element.style[key] = style[key];
+    }
+    return element;
+}
+
+var overlay = applyStyle(document.createElement('div'), {
     position: 'fixed',
     top: 0,
     bottom: 0,
@@ -13,11 +19,17 @@ var style = {
     zIndex: 999999,
     color: '#fff',
     fontSize: '80px'
-};
+});
 
-for (var key in style) {
-    overlay.style[key] = style[key];
-}
+var ball = applyStyle(document.createElement('div'), {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: '40px',
+    height: '40px',
+    borderRadius: '20px',
+    backgroundColor: 'red',
+});
 
 
 var KEY = 'lastVisit';
@@ -28,9 +40,11 @@ var now = new Date().getTime();
 var LIMIT = 5 * 60 * 1000;
 
 var minutes = parseInt((((LIMIT + previous) - now) / 1000 / 60), 10);
-var text = minutes >= 0 ? 'You have to wait' : 'Good job! You haven't being on Facebook for';
+var text = minutes >= 0 ? 'You have to wait' : 'Good job! You haven\'t being on Facebook for';
 var wait = '<br><em><small style="font-size: 0.4em">' + text + ' ' + Math.abs(minutes) + ' ' + (Math.abs(minutes) === 1 ? 'minute' : 'minutes') + '.</small></em>'
 overlay.innerHTML = 'Are you really bored?' + wait;
+
+//overlay.appendChild(ball);
 
 if (now - previous > LIMIT) {
     overlay.onclick = function() {
