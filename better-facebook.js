@@ -5,6 +5,23 @@ function applyStyle(element, style) {
     return element;
 }
 
+function convertMS( milliseconds ) {
+    var day, hour, minute, seconds;
+    seconds = Math.floor(milliseconds / 1000);
+    minute = Math.floor(seconds / 60);
+    seconds = seconds % 60;
+    hour = Math.floor(minute / 60);
+    minute = minute % 60;
+    day = Math.floor(hour / 24);
+    hour = hour % 24;
+    return {
+        day: day,
+        hour: hour,
+        minute: minute,
+        seconds: seconds
+    };
+}
+
 var overlay = applyStyle(document.createElement('div'), {
     position: 'fixed',
     top: 0,
@@ -31,6 +48,12 @@ var ball = applyStyle(document.createElement('div'), {
     backgroundColor: 'red',
 });
 
+function pluralize(value, text) {
+    if (value) {
+        return value + ' ' + (Math.abs(value) === 1 ? text : text + 's');
+    }
+    return ''
+}
 
 var KEY = 'lastVisit';
 
@@ -38,10 +61,10 @@ var previous = +localStorage.getItem(KEY);
 var now = new Date().getTime();
 
 var LIMIT = 5 * 60 * 1000;
-
-var minutes = parseInt((((LIMIT + previous) - now) / 1000 / 60), 10);
+var delta = convertMS(LIMIT + previous - now);
+var minutes = parseInt((((LIMIT + previous) - now) / 1000 / 60), 10)
 var text = minutes >= 0 ? 'You have to wait' : 'Good job! You haven\'t being on Facebook for';
-var wait = '<br><em><small style="font-size: 0.4em">' + text + ' ' + Math.abs(minutes) + ' ' + (Math.abs(minutes) === 1 ? 'minute' : 'minutes') + '.</small></em>'
+var wait = '<br><em><small style="font-size: 0.4em">' + text + ' ' + pluralize(delta.day, 'day') + pluralize(delta.hour, 'hour') + pluralize(delta.minute, 'minute') + '.</small></em>'
 overlay.innerHTML = 'Are you really bored?' + wait;
 
 //overlay.appendChild(ball);
